@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "belajar-react-native",
+    "name": "Product Management",
     "slug": "belajar-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -43,6 +43,11 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "VITE_API": "http://192.168.1.9:3000",
+      "VITE_USER_API": "http://192.168.1.9:3000/api/users",
+      "VITE_PRODUCT_API": "http://192.168.1.9:3000/api/products"
     }
   }
 }
