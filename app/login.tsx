@@ -2,6 +2,7 @@ import { Text, View, TextInput, TouchableOpacity, Alert, ActivityIndicator } fro
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { login } from "../services/userAPI";
+import * as SecureStore from 'expo-secure-store';
 
 export default function Login() {
   const router = useRouter();
@@ -20,8 +21,16 @@ export default function Login() {
       const response = await login({ email, password });
       console.log("Login response:", response);
       
-      // Simpan token atau data user jika diperlukan
-      // await AsyncStorage.setItem('userToken', response.token);
+      // Simpan token menggunakan SecureStore
+      if (response && response.user && response.user.token) {
+        await SecureStore.setItemAsync('userToken', response.user.token);
+        console.log('Token tersimpan ', response.user.token);
+      }
+      
+      // Simpan data user (SecureStore hanya untuk string)
+      if (response.user) {
+        await SecureStore.setItemAsync('userData', JSON.stringify(response.user));
+      }
       
       Alert.alert("Sukses", "Login berhasil!", [
         { text: "OK", onPress: () => router.replace("/home") }

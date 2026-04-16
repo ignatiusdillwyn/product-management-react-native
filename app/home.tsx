@@ -1,11 +1,31 @@
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { useRouter } from "expo-router";
+import * as SecureStore from 'expo-secure-store';
 
 export default function Home() {
   const router = useRouter();
 
-  const handleLogout = () => {
-    router.replace("/login");
+  const handleLogout = async () => {
+    Alert.alert(
+      "Konfirmasi",
+      "Apakah Anda yakin ingin logout?",
+      [
+        { text: "Batal", style: "cancel" },
+        { 
+          text: "Logout", 
+          style: "destructive",
+          onPress: async () => {
+            // Hapus token
+            await SecureStore.deleteItemAsync('userToken');
+            await SecureStore.deleteItemAsync('userData');
+            console.log('Token dihapus');
+            
+            // Redirect ke login
+            router.replace("/login");
+          }
+        }
+      ]
+    );
   };
 
   return (
