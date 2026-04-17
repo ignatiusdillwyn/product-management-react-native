@@ -1,6 +1,12 @@
-import { Text, View, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { useRouter } from "expo-router";
-import * as SecureStore from 'expo-secure-store';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import * as SecureStore from "expo-secure-store";
 
 export default function Home() {
   const router = useRouter();
@@ -8,110 +14,116 @@ export default function Home() {
   const handleLogout = async () => {
     Alert.alert(
       "Konfirmasi",
-      "Apakah Anda yakin ingin logout?",
+      "Apakah Anda yakin ingin keluar?",
       [
         { text: "Batal", style: "cancel" },
-        { 
-          text: "Logout", 
+        {
+          text: "Keluar",
           style: "destructive",
           onPress: async () => {
-            // Hapus token
-            await SecureStore.deleteItemAsync('userToken');
-            await SecureStore.deleteItemAsync('userData');
-            console.log('Token dihapus');
-            
-            // Redirect ke login
-            router.replace("/login");
-          }
-        }
+            try {
+              // Hapus token dari SecureStore
+              await SecureStore.deleteItemAsync("userToken");
+              // Redirect ke halaman login
+              router.replace("/login");
+            } catch (error) {
+              Alert.alert("Error", "Terjadi kesalahan saat logout");
+              console.error(error);
+            }
+          },
+        },
       ]
     );
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
-      <View style={{ padding: 20 }}>
-        <View style={{ alignItems: "center", marginBottom: 30 }}>
-          <Text style={{ fontSize: 24, fontWeight: "bold" }}>🏠 Home</Text>
-          <Text style={{ fontSize: 16, color: "#666", marginTop: 5 }}>
-            Selamat datang di aplikasi!
-          </Text>
-        </View>
-
-        {/* Card Info */}
-        <View
-          style={{
-            backgroundColor: "white",
-            padding: 20,
-            borderRadius: 10,
-            marginBottom: 20,
-            elevation: 2,
-          }}
-        >
-          <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
-            Dashboard
-          </Text>
-          <Text style={{ fontSize: 14, color: "#555" }}>
-            Ini adalah halaman utama setelah login. Silakan jelajahi fitur-fitur yang tersedia.
-          </Text>
-        </View>
-
-        {/* Card Stats */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginBottom: 20,
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "#4CAF50",
-              padding: 15,
-              borderRadius: 10,
-              marginRight: 10,
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
-              10
-            </Text>
-            <Text style={{ color: "white", marginTop: 5 }}>Items</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "#2196F3",
-              padding: 15,
-              borderRadius: 10,
-              marginLeft: 10,
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 24, fontWeight: "bold" }}>
-              5
-            </Text>
-            <Text style={{ color: "white", marginTop: 5 }}>Users</Text>
-          </View>
-        </View>
-
-        {/* Tombol Logout */}
-        <TouchableOpacity
-          onPress={handleLogout}
-          style={{
-            backgroundColor: "#ff4444",
-            padding: 15,
-            borderRadius: 8,
-            alignItems: "center",
-            marginTop: 20,
-          }}
-        >
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-            Logout
-          </Text>
-        </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Selamat Datang! 👋</Text>
+        <Text style={styles.subtitle}>Halaman Home</Text>
       </View>
-    </ScrollView>
+
+      <View style={styles.content}>
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Dashboard</Text>
+          <Text style={styles.cardText}>
+            Ini adalah halaman utama setelah login.
+          </Text>
+          <Text style={styles.cardText}>
+            Anda berhasil masuk ke aplikasi!
+          </Text>
+        </View>
+      </View>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+  },
+  header: {
+    backgroundColor: "#007AFF",
+    padding: 24,
+    paddingTop: 60,
+    paddingBottom: 24,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#e0e0e0",
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+  },
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 12,
+    color: "#333",
+  },
+  cardText: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 8,
+    lineHeight: 20,
+  },
+  logoutButton: {
+    backgroundColor: "#FF3B30",
+    margin: 20,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  logoutButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+});

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter, useRootNavigationState } from "expo-router";
 import { View, ActivityIndicator, Text } from "react-native";
 import * as SecureStore from 'expo-secure-store';
@@ -6,7 +6,6 @@ import * as SecureStore from 'expo-secure-store';
 export default function Index() {
   const router = useRouter();
   const rootNavigationState = useRootNavigationState();
-  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
     // Tunggu navigasi siap
@@ -17,6 +16,7 @@ export default function Index() {
       try {
         // Cek apakah ada token login
         const userToken = await SecureStore.getItemAsync('userToken');
+        console.log('userToken ', userToken);
         
         console.log('Token ditemukan:', userToken ? 'Ya' : 'Tidak');
         
@@ -33,8 +33,6 @@ export default function Index() {
         console.error('Error cek status login:', error);
         // Jika error, tetap ke login untuk amannya
         router.replace('/login');
-      } finally {
-        setIsChecking(false);
       }
     };
 
@@ -43,9 +41,9 @@ export default function Index() {
 
   // Tampilkan loading screen sambil mengecek status login
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ActivityIndicator size="large" color="blue" />
-      <Text style={{ marginTop: 10 }}>Memeriksa status login...</Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff" }}>
+      <ActivityIndicator size="large" color="#007AFF" />
+      <Text style={{ marginTop: 10, color: "#666" }}>Memeriksa status login...</Text>
     </View>
   );
 }
