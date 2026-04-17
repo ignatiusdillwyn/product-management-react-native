@@ -147,6 +147,17 @@ export default function Login() {
             <Text style={styles.buttonText}>Masuk</Text>
           )}
         </TouchableOpacity>
+
+        {/* Tombol Register */}
+        <View style={styles.registerContainer}>
+          <Text style={styles.registerText}>Belum punya akun? </Text>
+          <TouchableOpacity
+            onPress={() => router.push("/register")}
+            disabled={isLoading}
+          >
+            <Text style={styles.registerLink}>Daftar Sekarang</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -221,8 +232,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   eyeButton: {
-    marginHorizontal: 12,
-    marginVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
   },
   button: {
     backgroundColor: "#007AFF",
@@ -237,6 +248,23 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontSize: 16,
+    fontWeight: "600",
+  },
+  registerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: "#eee",
+  },
+  registerText: {
+    fontSize: 14,
+    color: "#666",
+  },
+  registerLink: {
+    fontSize: 14,
+    color: "#007AFF",
     fontWeight: "600",
   },
 });
