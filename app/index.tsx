@@ -36,6 +36,8 @@ export default function Index() {
       }
     };
 
+    setTimeout(() => {}, 3000000); // Simulasi delay untuk melihat loading screen
+
     checkAuthStatus();
   }, [rootNavigationState?.key]);
 

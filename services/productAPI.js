@@ -1,6 +1,10 @@
 import axios from "axios";
+import Constants from 'expo-constants';
 
-const URL = import.meta.env.VITE_PRODUCT_API;
+// Ambil URL dari extra config di app.json
+const { VITE_PRODUCT_API } = Constants.expoConfig?.extra || {};
+
+const URL = VITE_PRODUCT_API || "http://192.168.1.9:3000/api/products"; // Fallback URL
 
 const addProduct = async (payload, token) => {
     const response = await axios.post(`${URL}/create`, payload, {
@@ -42,7 +46,7 @@ const deleteProduct = async (id, token) => {
     return response.data;
 };
 
-const searchProduct = async (name) => {
+const searchProduct = async (name,token) => {
     const response = await axios.get(`${URL}/search/${name}`, {
         headers: {
             'Content-Type': 'application/json',
