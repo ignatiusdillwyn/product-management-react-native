@@ -20,17 +20,46 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState({
+    errorEmail: "",
+    errorPassword: "",
+  });
+
   const handleLogin = async () => {
     // Validasi input
+    if (email && !password) {
+      setErrorMessage({
+        errorEmail: "",
+        errorPassword: "Password tidak boleh kosong",
+      })
+      return;
+    }
+
+    if (!email && password) {
+      setErrorMessage({
+        errorEmail: "Email tidak boleh kosong",
+        errorPassword: "",
+      })
+      return;
+    }
+
     if (!email || !password) {
-      Alert.alert("Error", "Email dan password harus diisi!");
+      // Alert.alert("Error", "Email dan password harus diisi!");
+      setErrorMessage({
+        errorEmail: "Email tidak boleh kosong",
+        errorPassword: "Password tidak boleh kosong",
+      })
       return;
     }
 
     // Validasi format email sederhana
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      Alert.alert("Error", "Format email tidak valid!");
+      // Alert.alert("Error", "Format email tidak valid!");
+      setErrorMessage({
+        errorEmail: "Format email tidak valid!",
+        errorPassword: "",
+      })
       return;
     }
 
@@ -59,6 +88,7 @@ export default function Login() {
         // Redirect ke halaman home
         router.replace("/home");
       } else {
+        console.log('response:', response);
         // Jika response tidak sesuai yang diharapkan
         Alert.alert("Login Gagal", response.message || "Terjadi kesalahan, silakan coba lagi");
       }
@@ -109,6 +139,7 @@ export default function Login() {
             keyboardType="email-address"
             editable={!isLoading}
           />
+          {errorMessage.errorEmail ? <Text style={styles.error}>{errorMessage.errorEmail}</Text> : null}
         </View>
 
         <View style={styles.inputContainer}>
@@ -134,6 +165,7 @@ export default function Login() {
               />
             </TouchableOpacity>
           </View>
+          {errorMessage.errorPassword ? <Text style={styles.error}>{errorMessage.errorPassword}</Text> : null}
         </View>
 
         <TouchableOpacity
@@ -207,6 +239,12 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 8,
     color: "#333",
+  },
+  error: {
+    fontSize: 14,
+    fontWeight: "500",
+    // marginBottom: 8,
+    color: "red",
   },
   input: {
     borderWidth: 1,
