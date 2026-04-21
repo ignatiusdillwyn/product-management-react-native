@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useRouter, useRootNavigationState } from "expo-router";
 import { View, ActivityIndicator, Text } from "react-native";
 import * as SecureStore from 'expo-secure-store';
+import type { Href } from 'expo-router';
 
 export default function Index() {
   const router = useRouter();
@@ -21,18 +22,18 @@ export default function Index() {
         console.log('Token ditemukan:', userToken ? 'Ya' : 'Tidak');
         
         if (userToken) {
-          // Sudah login → langsung ke home
+          // Sudah login → langsung ke home (tabs)
           console.log('User sudah login, redirect ke /home');
-          router.replace('/home');
+          router.replace('/(tabs)/home' as Href);
         } else {
           // Belum login → ke halaman login
           console.log('User belum login, redirect ke /login');
-          router.replace('/login');
+          router.replace('/login' as Href);
         }
       } catch (error) {
         console.error('Error cek status login:', error);
         // Jika error, tetap ke login untuk amannya
-        router.replace('/login');
+        router.replace('/login' as Href);
       }
     };
 
