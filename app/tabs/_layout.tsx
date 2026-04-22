@@ -35,10 +35,10 @@ export default function TabLayout() {
             {/* TAB 1: HOME */}
             {/* name="home" artinya file home.tsx di dalam folder tabs yang akan dirender */}
             <Tabs.Screen
-                name="home"
+                name="viewProduct"
                 options={{
                     // Judul yang muncul di bawah icon
-                    title: 'Home',
+                    title: 'Products',
                     // Fungsi untuk menampilkan icon
                     // focused: true/false apakah tab ini sedang aktif
                     // color: warna dari tabBarActiveTintColor atau tabBarInactiveTintColor

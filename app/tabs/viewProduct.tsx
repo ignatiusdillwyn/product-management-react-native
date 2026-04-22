@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function HomeScreen() {
+export default function ViewProductScreen() {
   const router = useRouter();
 
   const handleLogout = async () => {

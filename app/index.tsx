@@ -16,7 +16,7 @@ export default function Index() {
         
         if (userToken) {
           // Redirect ke tabs (tanpa kurung)
-          router.replace('/tabs/home' as any);
+          router.replace('/tabs/viewProduct' as any);
         } else {
           router.replace('/login' as any);
         }

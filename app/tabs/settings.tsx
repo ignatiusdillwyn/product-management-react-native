@@ -1,10 +1,31 @@
-import { View, Text, StyleSheet, Switch, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Switch, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 
 export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    Alert.alert(
+      'Logout',
+      'Apakah Anda yakin ingin logout?',
+      [
+        { text: 'Batal', style: 'cancel' },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            await SecureStore.deleteItemAsync('userToken');
+            router.replace('/login');
+          },
+        },
+      ]
+    );
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -16,7 +37,7 @@ export default function SettingsScreen() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Preferensi</Text>
-        
+
         <View style={styles.settingItem}>
           <View style={styles.settingInfo}>
             <Ionicons name="notifications" size={24} color="#007AFF" />
@@ -44,12 +65,17 @@ export default function SettingsScreen() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Informasi</Text>
-        
+
         <View style={styles.infoItem}>
           <Text style={styles.infoLabel}>Versi Aplikasi</Text>
           <Text style={styles.infoValue}>1.0.0</Text>
         </View>
       </View>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Ionicons name="log-out-outline" size={20} color="#FFFFFF" />
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -123,5 +149,22 @@ const styles = StyleSheet.create({
   infoValue: {
     fontSize: 16,
     color: '#8E8E93',
+  },
+  logoutButton: {
+    backgroundColor: '#FF3B30',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    borderRadius: 12,
+    marginTop: 180,
+    marginBottom: 20,
+    marginHorizontal: 20
+  },
+  logoutButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 10,
   },
 });
