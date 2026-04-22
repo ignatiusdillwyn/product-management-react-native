@@ -1,10 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ViewProductScreen() {
   const router = useRouter();
+
+  // TERIMA PARAMETER
+  const params = useLocalSearchParams();
+  const { productId, productName, price } = params;
+
+  console.log('Received params:', params);
 
   const handleLogout = async () => {
     Alert.alert(
