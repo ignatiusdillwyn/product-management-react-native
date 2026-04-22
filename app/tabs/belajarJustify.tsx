@@ -34,7 +34,7 @@ export default function Index() {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       <View style={{ padding: 20 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10, marginTop: 40 }}>
           Belajar justifyContent & alignItems
         </Text>
         

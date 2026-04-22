@@ -57,7 +57,7 @@ export default function Login() {
         Alert.alert("Sukses", response.message || "Login berhasil!");
         
         // Redirect ke halaman home
-        router.replace("/home");
+        router.replace("/tabs/home");
       } else {
         // Jika response tidak sesuai yang diharapkan
         Alert.alert("Login Gagal", response.message || "Terjadi kesalahan, silakan coba lagi");

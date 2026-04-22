@@ -5,13 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  const [autoSave, setAutoSave] = useState(true);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="settings" size={40} color="#007AFF" />
-        <Text style={styles.title}>Pengaturan</Text>
+        <Ionicons name="settings" size={50} color="#007AFF" />
+        <Text style={styles.title}>Settings</Text>
         <Text style={styles.subtitle}>Atur preferensi aplikasi Anda</Text>
       </View>
 
@@ -41,46 +40,6 @@ export default function SettingsScreen() {
             trackColor={{ false: '#E5E5EA', true: '#007AFF' }}
           />
         </View>
-
-        <View style={styles.settingItem}>
-          <View style={styles.settingInfo}>
-            <Ionicons name="save" size={24} color="#007AFF" />
-            <Text style={styles.settingLabel}>Auto Save</Text>
-          </View>
-          <Switch
-            value={autoSave}
-            onValueChange={setAutoSave}
-            trackColor={{ false: '#E5E5EA', true: '#007AFF' }}
-          />
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Akun</Text>
-        
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuInfo}>
-            <Ionicons name="person" size={24} color="#007AFF" />
-            <Text style={styles.menuLabel}>Profil Saya</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#C6C6C8" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuInfo}>
-            <Ionicons name="lock-closed" size={24} color="#007AFF" />
-            <Text style={styles.menuLabel}>Keamanan</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#C6C6C8" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuInfo}>
-            <Ionicons name="language" size={24} color="#007AFF" />
-            <Text style={styles.menuLabel}>Bahasa</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#C6C6C8" />
-        </TouchableOpacity>
       </View>
 
       <View style={styles.section}>
@@ -90,22 +49,6 @@ export default function SettingsScreen() {
           <Text style={styles.infoLabel}>Versi Aplikasi</Text>
           <Text style={styles.infoValue}>1.0.0</Text>
         </View>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuInfo}>
-            <Ionicons name="document-text" size={24} color="#007AFF" />
-            <Text style={styles.menuLabel}>Kebijakan Privasi</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#C6C6C8" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuInfo}>
-            <Ionicons name="help-circle" size={24} color="#007AFF" />
-            <Text style={styles.menuLabel}>Bantuan</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#C6C6C8" />
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -122,6 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5EA',
+    paddingTop: 60,
   },
   title: {
     fontSize: 28,
@@ -160,23 +104,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   settingLabel: {
-    fontSize: 16,
-    color: '#000000',
-    marginLeft: 12,
-  },
-  menuItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
-  },
-  menuInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  menuLabel: {
     fontSize: 16,
     color: '#000000',
     marginLeft: 12,

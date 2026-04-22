@@ -16,13 +16,8 @@ export default function HomeScreen() {
           text: 'Logout',
           style: 'destructive',
           onPress: async () => {
-            try {
-              await SecureStore.deleteItemAsync('userToken');
-              router.replace('/login');
-            } catch (error) {
-              console.error('Error saat logout:', error);
-              Alert.alert('Error', 'Gagal melakukan logout');
-            }
+            await SecureStore.deleteItemAsync('userToken');
+            router.replace('/login');
           },
         },
       ]
@@ -32,16 +27,17 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="home" size={40} color="#007AFF" />
-        <Text style={styles.title}>Halaman Home</Text>
-        <Text style={styles.subtitle}>Selamat datang di aplikasi!</Text>
+        <Ionicons name="home" size={50} color="#007AFF" />
+        <Text style={styles.title}>Selamat Datang! 🥳</Text>
+        <Text style={styles.subtitle}>Halaman Home</Text>
       </View>
 
       <View style={styles.content}>
         <View style={styles.card}>
-          <Ionicons name="information-circle" size={30} color="#007AFF" />
+          <Text style={styles.cardTitle}>Dashboard</Text>
           <Text style={styles.cardText}>
-            Ini adalah halaman utama aplikasi. Anda dapat mengakses pengaturan melalui tab Settings di bawah.
+            Ini adalah halaman utama setelah login.{'\n'}
+            Anda berhasil masuk ke aplikasi!
           </Text>
         </View>
 
@@ -65,6 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5EA',
+    paddingTop: 60,
   },
   title: {
     fontSize: 28,
@@ -73,7 +70,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#8E8E93',
     marginTop: 5,
   },
@@ -86,19 +83,21 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 20,
     marginBottom: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 10,
+  },
   cardText: {
     fontSize: 14,
-    color: '#000000',
-    marginLeft: 15,
-    flex: 1,
+    color: '#666666',
     lineHeight: 20,
   },
   logoutButton: {
