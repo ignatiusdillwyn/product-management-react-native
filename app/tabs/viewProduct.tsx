@@ -34,11 +34,23 @@ export default function ViewProductScreen() {
     );
   };
 
+  const getToken = async () => {
+    try {
+      const token = await SecureStore.getItemAsync('userToken');
+      console.log('User token:', token);
+      return token;
+    } catch (error) {
+      console.error('Error getting token:', error);
+      return null;
+    }
+  }
+
   const getAllProducts = async () => {
     try {
-      const response = await fetchAllProduct();
-      console.log('All products:', response);
-      // setProducts(response.products);
+      const token = await getToken();
+      const response = await fetchAllProduct(token);
+      console.log('All products:', response.data);
+      setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -47,7 +59,7 @@ export default function ViewProductScreen() {
   useEffect(() => {
     getAllProducts();
   }, [])
-  
+
 
   return (
     <View style={styles.container}>
