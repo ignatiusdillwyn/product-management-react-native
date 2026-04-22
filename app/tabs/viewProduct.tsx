@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
+import { fetchAllProduct } from '../../services/productAPI.js';
+import { useEffect, useState } from 'react';
 
 export default function ViewProductScreen() {
   const router = useRouter();
@@ -11,6 +13,8 @@ export default function ViewProductScreen() {
   const { productId, productName, price } = params;
 
   console.log('Received params:', params);
+
+  const [products, setProducts] = useState();
 
   const handleLogout = async () => {
     Alert.alert(
@@ -29,6 +33,21 @@ export default function ViewProductScreen() {
       ]
     );
   };
+
+  const getAllProducts = async () => {
+    try {
+      const response = await fetchAllProduct();
+      console.log('All products:', response);
+      // setProducts(response.products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }
+
+  useEffect(() => {
+    getAllProducts();
+  }, [])
+  
 
   return (
     <View style={styles.container}>
