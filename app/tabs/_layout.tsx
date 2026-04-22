@@ -54,24 +54,7 @@ export default function TabLayout() {
                 }}
             />
             
-            {/* TAB 2: BELAJAR JUSTIFY */}
-            {/* name="belajarJustify" artinya file belajarJustify.tsx di dalam folder tabs */}
-            <Tabs.Screen
-                name="belajarJustify"
-                options={{
-                    title: 'Belajar Justify',     // Teks yang muncul di bawah icon
-                    tabBarIcon: ({ focused, color, size }) => (
-                        // Icon buku - berubah bentuk saat aktif/tidak aktif
-                        <Ionicons
-                            name={focused ? 'book' : 'book-outline'}
-                            size={size}
-                            color={color}
-                        />
-                    ),
-                }}
-            />
-            
-            {/* TAB 3: SETTINGS */}
+            {/* TAB 2: SETTINGS */}
             {/* name="settings" artinya file settings.tsx di dalam folder tabs */}
             <Tabs.Screen
                 name="settings"
