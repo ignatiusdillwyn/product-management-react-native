@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 import { fetchAllProduct, searchProduct } from '../../services/productAPI.js';
 import { useEffect, useState } from 'react';
+import { FlatList } from 'react-native-reanimated/lib/typescript/Animated.js';
 
 export default function ViewProductScreen() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function ViewProductScreen() {
 
   console.log('Received params:', params);
 
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleLogout = async () => {
@@ -71,7 +72,19 @@ export default function ViewProductScreen() {
     }
   }
 
+  const renderProduct = ({ item }: any) => {
+    return (
+      <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
+        <Text style={{ color: '#666' }}>Price: {item.price}</Text>
+      </View>
+    );
+  }
+
   useEffect(() => {
+    if (products.length == 0){
+      console.log('produk kosong');
+    }
     getAllProducts();
   }, [])
 
@@ -106,6 +119,15 @@ export default function ViewProductScreen() {
           onChangeText={handleSearch}
         />
       </View>
+
+      <View>
+        <FlatList
+          data={products}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderProduct}
+        />
+      </View>
+      
     </View>
   );
 }
