@@ -1,6 +1,12 @@
 import axios from "axios";
+import Constants from 'expo-constants';
 
-const URL = import.meta.env.VITE_PRODUCT_API;
+// Ambil URL dari extra config di app.json
+const { VITE_USER_API } = Constants.expoConfig?.extra || {};
+
+// const URL = VITE_USER_API || "http://192.168.1.11:3000/api/products"; // Fallback URL
+const URL = "http://192.168.1.11:3000/api/products"; // Fallback URL
+
 
 const addProduct = async (payload, token) => {
     const response = await axios.post(`${URL}/create`, payload, {
