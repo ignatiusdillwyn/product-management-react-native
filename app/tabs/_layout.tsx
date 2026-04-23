@@ -8,10 +8,10 @@ export default function TabLayout() {
             screenOptions={{
                 // Warna icon dan teks saat tab dalam keadaan AKTIF (ditekan)
                 tabBarActiveTintColor: '#007AFF', // Biru khas iOS
-                
+
                 // Warna icon dan teks saat tab dalam keadaan TIDAK AKTIF
                 tabBarInactiveTintColor: '#8E8E93', // Abu-abu iOS
-                
+
                 // Styling untuk bottom tab bar
                 tabBarStyle: {
                     backgroundColor: '#FFFFFF',     // Warna background putih
@@ -21,13 +21,13 @@ export default function TabLayout() {
                     paddingBottom: 8,               // Jarak bawah konten
                     paddingTop: 8,                  // Jarak atas konten
                 },
-                
+
                 // Styling untuk label teks di bawah icon
                 tabBarLabelStyle: {
                     fontSize: 12,                   // Ukuran font teks
                     fontWeight: '500',              // Ketebalan font (medium)
                 },
-                
+
                 // Sembunyikan header bawaan dari setiap halaman
                 headerShown: false,
             }}
@@ -53,8 +53,25 @@ export default function TabLayout() {
                     ),
                 }}
             />
-            
+
             {/* TAB 2: SETTINGS */}
+            {/* name="settings" artinya file settings.tsx di dalam folder tabs */}
+            <Tabs.Screen
+                name="addProduct"
+                options={{
+                    title: 'Add Product',
+                    tabBarIcon: ({ focused, color, size }) => (
+                        // Icon gear/setting - berubah bentuk saat aktif/tidak aktif
+                        <Ionicons
+                            name={focused ? 'add-circle' : 'add-circle-outline'}
+                            size={size}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+
+            {/* TAB 3: SETTINGS */}
             {/* name="settings" artinya file settings.tsx di dalam folder tabs */}
             <Tabs.Screen
                 name="settings"
