@@ -5,7 +5,8 @@ import Constants from 'expo-constants';
 // Ambil URL dari extra config di app.json
 const { VITE_PRODUCT_API } = Constants.expoConfig?.extra || {};
 
-const URL = VITE_PRODUCT_API || "http://192.168.1.9:3000/api/products"; // Fallback URL
+// const URL = VITE_PRODUCT_API || "http://192.168.1.11:3000/api/products"; // Fallback URL
+const URL = "http://192.168.1.11:3000/api/products"; // Fallback URL
 
 console.log('URL Product API:', URL);
 
