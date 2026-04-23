@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, useWindowDimensions } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
-import { fetchAllProduct } from '../../services/productAPI.js';
+import { fetchAllProduct, searchProduct } from '../../services/productAPI.js';
 import { useEffect, useState } from 'react';
 
 export default function ViewProductScreen() {
   const router = useRouter();
+  const { height, width } = useWindowDimensions();
 
   // TERIMA PARAMETER
   const params = useLocalSearchParams();
@@ -15,6 +16,7 @@ export default function ViewProductScreen() {
   console.log('Received params:', params);
 
   const [products, setProducts] = useState();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleLogout = async () => {
     Alert.alert(
@@ -49,10 +51,23 @@ export default function ViewProductScreen() {
     try {
       const token = await getToken();
       const response = await fetchAllProduct(token);
-      console.log('All products:', response.data);
-      setProducts(response.data);
+      console.log('All products:', response);
+      setProducts(response.products);
     } catch (error) {
       console.error('Error fetching products:', error);
+    }
+  }
+
+  const handleSearch = async (query: any) => {
+    setSearchQuery(query);
+    console.log('Search query:', query);
+    const token = await getToken();
+    const response = await searchProduct(query,token);
+
+    console.log('Search response:', response);
+
+    if (response){
+      setProducts(response.products);
     }
   }
 
@@ -63,7 +78,7 @@ export default function ViewProductScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Ionicons name="home" size={50} color="#007AFF" />
         <Text style={styles.title}>Selamat Datang! 🥳</Text>
         <Text style={styles.subtitle}>Halaman Home</Text>
@@ -82,6 +97,14 @@ export default function ViewProductScreen() {
           <Ionicons name="log-out-outline" size={20} color="#FFFFFF" />
           <Text style={styles.logoutButtonText}>Logout</Text>
         </TouchableOpacity>
+      </View> */}
+      <View style={{ marginTop: 100, backgroundColor: 'red'}}>
+        <TextInput
+          style={{height: 50}}
+          placeholder='Search'
+          value={searchQuery}
+          onChangeText={handleSearch}
+        />
       </View>
     </View>
   );
