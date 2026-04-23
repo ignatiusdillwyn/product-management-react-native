@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, useWindowDimensions, FlatList } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 import { fetchAllProduct, searchProduct } from '../../services/productAPI.js';
 import { useEffect, useState } from 'react';
-import { FlatList } from 'react-native-reanimated/lib/typescript/Animated.js';
 
 export default function ViewProductScreen() {
   const router = useRouter();
@@ -61,6 +60,12 @@ export default function ViewProductScreen() {
 
   const handleSearch = async (query: any) => {
     setSearchQuery(query);
+
+    if (query.trim() === '') {
+      getAllProducts();
+      return;
+    } 
+
     console.log('Search query:', query);
     const token = await getToken();
     const response = await searchProduct(query,token);
@@ -72,7 +77,7 @@ export default function ViewProductScreen() {
     }
   }
 
-  const renderProduct = ({ item }: any) => {
+  const renderProduct = (item : any) => {
     return (
       <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
         <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
@@ -123,7 +128,7 @@ export default function ViewProductScreen() {
       <View>
         <FlatList
           data={products}
-          keyExtractor={(item) => item.id.toString()}
+          // keyExtractor={(item) => item.id.toString()}
           renderItem={renderProduct}
         />
       </View>
