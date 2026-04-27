@@ -17,6 +17,7 @@ export default function ViewProductScreen() {
 
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
     Alert.alert(
@@ -49,10 +50,12 @@ export default function ViewProductScreen() {
 
   const getAllProducts = async () => {
     try {
+      setIsLoading(true);
       const token = await getToken();
       const response = await fetchAllProduct(token);
       console.log('All products:', response);
       setProducts(response.products);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -64,30 +67,38 @@ export default function ViewProductScreen() {
     if (query.trim() === '') {
       getAllProducts();
       return;
-    } 
+    }
 
     console.log('Search query:', query);
     const token = await getToken();
-    const response = await searchProduct(query,token);
+    const response = await searchProduct(query, token);
 
     console.log('Search response:', response);
 
-    if (response){
+    if (response) {
       setProducts(response.products);
     }
   }
 
-  const renderProduct = (item : any) => {
+  const renderProduct = ({ item }: { item: any }) => {
     return (
-      <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
-        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
-        <Text style={{ color: '#666' }}>Price: {item.price}</Text>
-      </View>
+      <TouchableOpacity style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: '#ccc', width: 350, backgroundColor: '#5ED7EB', marginTop: 20, borderRadius: 10 }} >
+        <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View>
+            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
+            <Text style={{ color: '#666' }}>Price: {item.price}</Text>
+          </View>
+
+          <View style = {{marginTop: 10}}>
+            <Text style={{ color: '#666' }}>{item.description}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     );
   }
 
   useEffect(() => {
-    if (products.length == 0){
+    if (products.length == 0) {
       console.log('produk kosong');
     }
     getAllProducts();
@@ -116,23 +127,26 @@ export default function ViewProductScreen() {
           <Text style={styles.logoutButtonText}>Logout</Text>
         </TouchableOpacity>
       </View> */}
-      <View style={{ marginTop: 100, backgroundColor: 'red'}}>
+      <View style={{ marginTop: 80, backgroundColor: 'grey' }}>
         <TextInput
-          style={{height: 50}}
+          style={{ height: 50 }}
           placeholder='Search'
           value={searchQuery}
           onChangeText={handleSearch}
         />
       </View>
 
-      <View>
-        <FlatList
-          data={products}
-          // keyExtractor={(item) => item.id.toString()}
-          renderItem={renderProduct}
-        />
-      </View>
-      
+      {isLoading ? <Text>Loading</Text> :
+        <View style={{ alignItems: 'center' }}>
+          <FlatList
+            data={products}
+            // keyExtractor={(item) => item.id.toString()}
+            renderItem={renderProduct}
+          />
+        </View>
+      }
+
+
     </View>
   );
 }
