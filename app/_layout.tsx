@@ -22,6 +22,12 @@ export default function RootLayout() {
         }} 
       />
       <Stack.Screen 
+        name="viewProductDetail" 
+        options={{ 
+          headerShown: false,
+        }} 
+      />
+      <Stack.Screen 
         name="tabs" 
         options={{ 
           headerShown: false,

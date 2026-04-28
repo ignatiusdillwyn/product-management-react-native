@@ -86,11 +86,11 @@ export default function ViewProductScreen() {
         <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
-            <Text style={{ color: '#666' }}>Price: {item.price}</Text>
+            <Text style={{ color: '#666' }}>Price: {item.description}</Text>
           </View>
 
           <View style = {{marginTop: 10}}>
-            <Text style={{ color: '#666' }}>{item.description}</Text>
+            <Text style={{ color: '#666' }}>Rp {item.price}</Text>
           </View>
         </View>
       </TouchableOpacity>
