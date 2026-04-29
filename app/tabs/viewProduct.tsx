@@ -80,17 +80,26 @@ export default function ViewProductScreen() {
     }
   }
 
+  const toDetailProduct = (product: any) => {
+    router.push({
+      pathname: '../viewProductDetail',
+      params: {
+        product: JSON.stringify(product)
+      }
+    })
+  }
+
   const renderProduct = ({ item }: { item: any }) => {
     return (
-      <TouchableOpacity style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: '#ccc', width: 350, backgroundColor: '#5ED7EB', marginTop: 20, borderRadius: 10 }} >
-        <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
+      <TouchableOpacity onPress={() => { toDetailProduct(item) }} style={{ padding: 20, borderBottomWidth: 1, borderBottomColor: '#ccc', width: 350, backgroundColor: '#5ED7EB', marginTop: 20, borderRadius: 10 }} >
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
-            <Text style={{ color: '#666' }}>Price: {item.description}</Text>
+            <Text style={{ color: '#666' }}>Stock: {item.qty}</Text>
           </View>
 
-          <View style = {{marginTop: 10}}>
-            <Text style={{ color: '#666' }}>Rp {item.price}</Text>
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ color: '#666' }}>Rp {item.price.toLocaleString("id-ID")}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -107,26 +116,6 @@ export default function ViewProductScreen() {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.header}>
-        <Ionicons name="home" size={50} color="#007AFF" />
-        <Text style={styles.title}>Selamat Datang! 🥳</Text>
-        <Text style={styles.subtitle}>Halaman Home</Text>
-      </View>
-
-      <View style={styles.content}>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Dashboard</Text>
-          <Text style={styles.cardText}>
-            Ini adalah halaman utama setelah login.{'\n'}
-            Anda berhasil masuk ke aplikasi!
-          </Text>
-        </View>
-
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Ionicons name="log-out-outline" size={20} color="#FFFFFF" />
-          <Text style={styles.logoutButtonText}>Logout</Text>
-        </TouchableOpacity>
-      </View> */}
       <View style={{ marginTop: 80, backgroundColor: 'grey' }}>
         <TextInput
           style={{ height: 50 }}
@@ -137,16 +126,20 @@ export default function ViewProductScreen() {
       </View>
 
       {isLoading ? <Text>Loading</Text> :
-        <View style={{ alignItems: 'center' }}>
-          <FlatList
-            data={products}
-            // keyExtractor={(item) => item.id.toString()}
-            renderItem={renderProduct}
-          />
-        </View>
+        <FlatList
+          data={products}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderProduct}
+          contentContainerStyle={{ alignItems: 'center' }}
+          ListEmptyComponent={() => {
+            return (
+              <View style={{ alignItems: 'center', marginTop: 20 }}>
+                <Text style={{ color: '#666' }}>No products found.</Text>
+              </View>
+            );
+          }}
+        />
       }
-
-
     </View>
   );
 }

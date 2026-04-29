@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 const { VITE_USER_API } = Constants.expoConfig?.extra || {};
 
 // const URL = VITE_USER_API || "http://192.168.1.11:3000/api/users"; // Fallback URL
-const URL = "http://192.168.1.9:3000/api/users"; // Fallback URL
+const URL = "http://192.168.1.11:3000/api/users"; // Fallback URL
 
 console.log('URL ', URL);
 
