@@ -23,7 +23,8 @@ const viewProductDetail = () => {
   return (
     <View style={{ marginTop: 40, backgroundColor: 'yellow' }}>
       <ScrollView style={{ height: 700 }}>
-        <View style={{ backgroundColor: 'grey' }}>
+        <View style={{ backgroundColor: 'grey', marginTop: 20 }}>
+          <Text>Name</Text>
           <TextInput
             value={productData?.name}
             onChangeText={(text) => setProductData({ ...productData, name: text })}
@@ -31,7 +32,8 @@ const viewProductDetail = () => {
           />
         </View>
 
-        <View style={{ backgroundColor: 'grey' }}>
+        <View style={{ backgroundColor: 'grey', marginTop: 20  }}>
+          <Text>Description</Text>
           <TextInput
             value={productData?.description}
             onChangeText={(text) => setProductData({ ...productData, description: text })}
@@ -39,16 +41,17 @@ const viewProductDetail = () => {
           />
         </View>
 
-        <View style={{ backgroundColor: 'grey' }}>
+        <View style={{ backgroundColor: 'grey', marginTop: 20  }}>
+          <Text>Qty</Text>
           <TextInput
-            value={productData?.qty}
+            value={productData?.qty.toString()}
             onChangeText={(text) => setProductData({ ...productData, qty: text })}
             placeholder="Product Quantity"
           />
         </View>
       </ScrollView>
 
-      <View style = {{ marginTop: 30}}>
+      <View style={{ marginTop: 30 }}>
         <Button
           title='Update'
         />
