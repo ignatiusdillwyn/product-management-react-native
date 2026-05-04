@@ -79,7 +79,7 @@ const viewProductDetail = () => {
           </View>
 
           <View style={{ backgroundColor: '', marginTop: 25, marginHorizontal: 10 }}>
-            <Text style={{ marginBottom: 5 }}>Product Quantitiy</Text>
+            <Text style={{ marginBottom: 5 }}>Product Quantity</Text>
             <TextInput
               style={{ backgroundColor: 'white', borderRadius: 10, padding: 12, borderColor: '#E5E5EA', borderWidth: 1 }}
               value={productData?.qty.toString()}
