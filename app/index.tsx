@@ -16,7 +16,7 @@ export default function Index() {
         
         if (userToken) {
           // Redirect ke tabs (tanpa kurung)
-          router.replace('/tabs/viewProduct' as any);
+          // router.replace('/tabs/viewProduct' as any);
           router.replace({
             pathname: '/tabs/viewProduct',
             params: {

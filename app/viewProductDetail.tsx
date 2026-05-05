@@ -87,6 +87,27 @@ const viewProductDetail = () => {
               placeholder="Product Quantity..."
             />
           </View>
+
+          {/* <View style={{ backgroundColor: 'green', marginTop: 25, flexDirection:'row', justifyContent: 'space-around' }}>
+            <View style = {{}}>
+              <Text style={{ marginBottom: 5 }}>RT</Text>
+              <TextInput
+                style={{ backgroundColor: 'white', borderRadius: 10, padding: 12, borderColor: '#E5E5EA', borderWidth: 1, width: 170 }}
+                value={productData?.qty.toString()}
+                onChangeText={(text) => setProductData({ ...productData, qty: parseInt(text) })}
+                placeholder="Product Quantity..."
+              />
+            </View>
+            <View style = {{}}>
+              <Text style={{ marginBottom: 5 }}>RW</Text>
+              <TextInput
+                style={{ backgroundColor: 'white', borderRadius: 10, padding: 12, borderColor: '#E5E5EA', borderWidth: 1, width: 170 }}
+                value={productData?.qty.toString()}
+                onChangeText={(text) => setProductData({ ...productData, qty: parseInt(text) })}
+                placeholder="Product Quantity..."
+              />
+            </View>
+          </View> */}
         </View>
 
         <TouchableOpacity
