@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 import { fetchAllProduct, searchProduct } from '../../services/productAPI.js';
 import { useEffect, useState } from 'react';
+import DeleteConfirmationModal from '../../components/DeleteConfirmationModal';
 
 export default function ViewProductScreen() {
   const router = useRouter();
@@ -115,32 +116,34 @@ export default function ViewProductScreen() {
 
 
   return (
-    <View style={styles.container}>
-      <View style={{ marginTop: 80, backgroundColor: 'grey' }}>
-        <TextInput
-          style={{ height: 50 }}
-          placeholder='Search'
-          value={searchQuery}
-          onChangeText={handleSearch}
-        />
-      </View>
+    <>
+      <View style={styles.container}>
+        <View style={{ marginTop: 80, backgroundColor: 'grey' }}>
+          <TextInput
+            style={{ height: 50 }}
+            placeholder='Search'
+            value={searchQuery}
+            onChangeText={handleSearch}
+          />
+        </View>
 
-      {isLoading ? <Text>Loading</Text> :
-        <FlatList
-          data={products}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderProduct}
-          contentContainerStyle={{ alignItems: 'center' }}
-          ListEmptyComponent={() => {
-            return (
-              <View style={{ alignItems: 'center', marginTop: 20 }}>
-                <Text style={{ color: '#666' }}>No products found.</Text>
-              </View>
-            );
-          }}
-        />
-      }
-    </View>
+        {isLoading ? <Text>Loading</Text> :
+          <FlatList
+            data={products}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderProduct}
+            contentContainerStyle={{ alignItems: 'center' }}
+            ListEmptyComponent={() => {
+              return (
+                <View style={{ alignItems: 'center', marginTop: 20 }}>
+                  <Text style={{ color: '#666' }}>No products found.</Text>
+                </View>
+              );
+            }}
+          />
+        }
+      </View>
+    </>
   );
 }
 

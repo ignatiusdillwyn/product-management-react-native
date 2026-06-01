@@ -5,6 +5,7 @@ import { fetchAllProduct, searchProduct, addProduct, deleteProduct, updateProduc
 import * as SecureStore from 'expo-secure-store';
 import { getToken } from '../utils.js'
 import SuccessModal from "../components/SuccessModal";
+import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 
 const viewProductDetail = () => {
   const router = useRouter();
@@ -20,6 +21,8 @@ const viewProductDetail = () => {
   const [productData, setProductData] = useState(parsedProductData);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleUpdateProduct = async () => {
     let token = await getToken();
@@ -39,6 +42,14 @@ const viewProductDetail = () => {
     setTimeout(() => {
       router.push("/tabs/viewProduct");
     }, 100);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    // Redirect ke halaman login setelah modal ditutup
+    // setTimeout(() => {
+    //   router.push("/tabs/viewProduct");
+    // }, 100);
   };
 
   return (
@@ -132,6 +143,16 @@ const viewProductDetail = () => {
         message={modalMessage}
         buttonText="Ok"
         onClose={handleModalClose}
+      />
+
+      <DeleteConfirmationModal
+        visible={true}
+        title="Delete Product"
+        message="Are you sure you want to delete this product?"
+        buttonConfirmText="Delete"
+        buttonCancelText="Cancel"
+        onDelete={() => {}}
+        onCancel={handleCancelDelete}
       />
     </>
   )
